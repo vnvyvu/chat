@@ -1,0 +1,11 @@
+services:
+  db:
+    image: mariadb:10.8
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: root
+      MARIADB_DATABASE: chat
+    volumes:
+      - ./docker_data/mysql:/var/lib/mysql
+    ports:
+      - "3306:3306"
