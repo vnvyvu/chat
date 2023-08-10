@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package channel;
+
+service ChannelService{
+  rpc Get (GetChannel) returns (Channel);
+}
+
+message GetChannel{
+  int32 id = 1;
+}
+
+message Channel{
+  int32 id = 1;
+  string title = 2;
+  string avatarPath = 3;
+  string channelInvitationCode = 4;
+}

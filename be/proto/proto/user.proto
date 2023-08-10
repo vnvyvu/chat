@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package user;
+
+service UserService{
+  rpc Get (GetUser) returns (User);
+}
+
+message GetUser{
+  int32 id = 1;
+}
+
+message User{
+  int32 id = 1;
+  string name = 2;
+  string avatarPath = 3;
+  int32 channelId = 4;
+}

@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package message;
+
+service MessageService{
+  rpc Get (GetMessage) returns (Message);
+}
+
+message GetMessage{
+  int32 id = 1;
+}
+
+message Message{
+  int32 id = 1;
+  string content = 2;
+  string embedPath = 3;
+  int32 userId = 4;
+  int32 channelId = 5;
+}

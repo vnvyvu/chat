@@ -1,0 +1,60 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         Int     @id @default(autoincrement())
+  name       String
+  password   String
+  email      String
+  avatarPath String? @map("avatar_path")
+
+  UserChannel UserChannel[]
+  Token       Token[]
+}
+
+model Token {
+  id    Int    @id @default(autoincrement())
+  token String
+
+  user   User @relation(fields: [userId], references: [id])
+  userId Int  @map("user_id")
+}
+
+model Channel {
+  id   Int    @id @default(autoincrement())
+  name String
+  code String
+
+  UserChannel UserChannel[]
+}
+
+model UserChannel {
+  id     Int      @id @default(autoincrement())
+  banned Boolean?
+
+  user      User    @relation(fields: [userId], references: [id])
+  channel   Channel @relation(fields: [channelId], references: [id])
+  userId    Int     @map("user_id")
+  channelId Int     @map("channel_id")
+
+  Message Message[]
+}
+
+model Message {
+  id        Int     @id @default(autoincrement())
+  content   String
+  filePath  String? @map("file_path")
+  mediaPath String? @map("media_path")
+
+  userChannel   UserChannel @relation(fields: [userChannelId], references: [id])
+  userChannelId Int         @map("user_channel_id")
+}

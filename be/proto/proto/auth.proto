@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package auth;
+
+service AuthService{
+  rpc login(LoginReq) returns (LoginRes);
+}
+
+message LoginReq{
+  string email = 1;
+  string password = 2;
+}
+
+message LoginRes{
+  string token = 1;
+}
